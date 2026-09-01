@@ -26,8 +26,8 @@ sudo apt-get install -y git
 Clone this repository:
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/arhaverly/SolarSPELL_LLM
+cd SolarSPELL_LLM
 ```
 
 Make the installation script executable:
@@ -118,7 +118,7 @@ The model files and compiled `llama.cpp` repository should generally not be comm
 For example, they may be installed under:
 
 ```text
-~/ai/
+~/SolarSPELL_LLM/
 ├── llama.cpp/
 └── models/
 ```
@@ -165,7 +165,7 @@ These values can be adjusted depending on the available SolarSPELL hardware.
 To rebuild `llama.cpp` manually:
 
 ```bash
-cd ~/ai/llama.cpp
+cd ~/SolarSPELL_LLM/llama.cpp
 
 cmake -S . -B build \
   -DCMAKE_BUILD_TYPE=Release \
