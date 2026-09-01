@@ -1,0 +1,22 @@
+# llama.cpp builds
+build/
+llama.cpp/
+ai/
+
+# Models
+*.gguf
+*.ggml
+models/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.part
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+*~
