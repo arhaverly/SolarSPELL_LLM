@@ -44,6 +44,8 @@ Run the installer:
 
 The installation script installs the required dependencies, builds `llama.cpp`, downloads the configured GGUF model, and prepares the system for running the LLM server.
 
+Save the API key that is output from this installation.
+
 ## Run the Server
 
 Make the server script executable if necessary:
@@ -61,7 +63,7 @@ Start the LLM server:
 By default, the server is expected to listen on:
 
 ```text
-http://0.0.0.0:8080
+http://127.0.0.1:8080
 ```
 
 From the same device, it can be accessed using:
