@@ -1,4 +1,3 @@
-```bash
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
@@ -15,6 +14,7 @@ CONTEXT="${CONTEXT:-1024}"
 THREADS="${THREADS:-4}"
 
 LLAMA_SERVER="$LLAMA_DIR/build/bin/llama-server"
+SERVICE_NAME="${SERVICE_NAME:-llama-server}"
 
 if [[ ! -x "$LLAMA_SERVER" ]]; then
     echo "ERROR: llama-server not found at:"
@@ -29,6 +29,22 @@ if [[ ! -f "$MODEL_PATH" ]]; then
     echo "  $MODEL_PATH"
     echo
     echo "Run ./install-llm.sh first."
+    exit 1
+fi
+
+# install-llm.sh also starts a systemd service on the same port.
+if command -v systemctl >/dev/null 2>&1 && systemctl is-active --quiet "$SERVICE_NAME"; then
+    echo "The SolarSPELL LLM is already running as the '$SERVICE_NAME' service:"
+    echo "  http://localhost:$PORT"
+    echo
+    echo "To run it in this terminal instead, stop the service first:"
+    echo "  sudo systemctl stop $SERVICE_NAME"
+    exit 0
+fi
+
+if (exec 3<>"/dev/tcp/127.0.0.1/$PORT") 2>/dev/null; then
+    echo "ERROR: Port $PORT is already in use by another program."
+    echo "Stop it, or choose another port:  PORT=8090 ./server.sh"
     exit 1
 fi
 
@@ -53,4 +69,3 @@ exec "$LLAMA_SERVER" \
     --reasoning-budget 0 \
     --host "$HOST" \
     --port "$PORT"
-```

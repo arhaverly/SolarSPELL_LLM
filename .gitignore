@@ -20,3 +20,21 @@ models/
 .idea/
 .DS_Store
 *~
+
+# FineTuned runtime files (created by FineTuned/install.sh)
+FineTuned/data/
+FineTuned/solarspell.env
+.venv/
+
+# Training outputs
+lora_llama/
+merged/
+chunks/
+*.safetensors
+
+# Python
+__pycache__/
+*.pyc
+
+# Index bundles (scripts/pack_index.sh)
+solarspell-index.tar.gz

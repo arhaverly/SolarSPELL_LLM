@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ask SolarSPELL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="assets/solarspell-wordmark.png" alt="SolarSPELL">
+    <h1>Ask SolarSPELL</h1>
+    <span id="status" class="status" title="Language model status"></span>
+  </header>
+
+  <main id="messages">
+    <div id="empty" class="empty">
+      <p class="empty-title">Ask a question about the SolarSPELL library</p>
+      <p>Answers are generated offline from the library's health, science and education materials.</p>
+    </div>
+  </main>
+
+  <form id="composer">
+    <textarea id="input" rows="2" placeholder="Type your question…" required></textarea>
+    <button id="send" type="submit">Send</button>
+  </form>
+
+  <script src="vendor/marked.min.js"></script>
+  <script src="vendor/purify.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
