@@ -1,4 +1,3 @@
-```bash
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
@@ -53,4 +52,3 @@ exec "$LLAMA_SERVER" \
     --reasoning-budget 0 \
     --host "$HOST" \
     --port "$PORT"
-```
