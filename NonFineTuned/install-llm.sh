@@ -28,9 +28,6 @@ BUILD_JOBS="${BUILD_JOBS:-$(nproc)}"
 
 SERVICE_NAME="llama-server"
 
-API_CONFIG_DIR="$HOME/.config/llama-server"
-API_KEY_FILE="$API_CONFIG_DIR/api.key"
-
 
 # ---------- Basic checks -------------------------------------
 
@@ -176,22 +173,6 @@ echo "Verifying model SHA256..."
 echo "$MODEL_SHA256  $MODEL_PATH" | sha256sum --check -
 
 
-# ---------- API key ------------------------------------------
-
-mkdir -p "$API_CONFIG_DIR"
-chmod 700 "$API_CONFIG_DIR"
-
-if [[ ! -s "$API_KEY_FILE" ]]; then
-    echo
-    echo "Generating API key..."
-
-    umask 077
-    openssl rand -hex 32 > "$API_KEY_FILE"
-fi
-
-chmod 600 "$API_KEY_FILE"
-
-
 # ---------- Install systemd service ---------------------------
 
 echo
@@ -215,8 +196,7 @@ ExecStart=$LLAMA_SERVER \
     -t $THREADS \
     --reasoning-budget 0 \
     --host $HOST \
-    --port $PORT \
-    --api-key-file $API_KEY_FILE
+    --port $PORT
 
 Restart=on-failure
 RestartSec=3
@@ -252,14 +232,11 @@ echo "Server:"
 echo "  http://127.0.0.1:$PORT"
 echo
 
-echo "LAN addresses:"
-hostname -I 2>/dev/null || true
+echo "Open from any device on the network:"
+for ip in $(hostname -I 2>/dev/null); do
+    echo "  http://$ip:$PORT"
+done
 
-echo
-echo "API key:"
-cat "$API_KEY_FILE"
-
-echo
 echo
 echo "Service status:"
 echo "  sudo systemctl status $SERVICE_NAME"

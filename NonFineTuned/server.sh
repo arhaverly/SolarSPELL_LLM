@@ -15,7 +15,6 @@ THREADS="${THREADS:-4}"
 
 LLAMA_SERVER="$LLAMA_DIR/build/bin/llama-server"
 SERVICE_NAME="${SERVICE_NAME:-llama-server}"
-API_KEY_FILE="${API_KEY_FILE:-$HOME/.config/llama-server/api.key}"
 
 if [[ ! -x "$LLAMA_SERVER" ]]; then
     echo "ERROR: llama-server not found at:"
@@ -49,11 +48,6 @@ if (exec 3<>"/dev/tcp/127.0.0.1/$PORT") 2>/dev/null; then
     exit 1
 fi
 
-API_KEY_ARGS=()
-if [[ -s "$API_KEY_FILE" ]]; then
-    API_KEY_ARGS=(--api-key-file "$API_KEY_FILE")
-fi
-
 echo "Starting SolarSPELL LLM"
 echo
 echo "Model:   $MODEL_PATH"
@@ -64,10 +58,6 @@ echo "Threads: $THREADS"
 echo
 echo "Server URL:"
 echo "  http://localhost:$PORT"
-if [[ ${#API_KEY_ARGS[@]} -gt 0 ]]; then
-    echo
-    echo "API key: $API_KEY_FILE"
-fi
 echo
 echo "Press Ctrl+C to stop."
 echo
@@ -78,5 +68,4 @@ exec "$LLAMA_SERVER" \
     -t "$THREADS" \
     --reasoning-budget 0 \
     --host "$HOST" \
-    --port "$PORT" \
-    "${API_KEY_ARGS[@]}"
+    --port "$PORT"

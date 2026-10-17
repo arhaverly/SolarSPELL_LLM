@@ -44,7 +44,7 @@ Run the installer:
 
 The installation script installs the required dependencies, builds `llama.cpp`, downloads the configured GGUF model, and prepares the system for running the LLM server.
 
-Save the API key that is output from this installation.
+The server is open to anyone on the network; no API key is needed.
 
 ## Run the Server
 
@@ -91,11 +91,7 @@ curl http://localhost:8080/v1/chat/completions \
   }'
 ```
 
-If API-key authentication is enabled, include:
-
-```bash
--H "Authorization: Bearer <api-key>"
-```
+Other devices on the network can use `http://<device-address>:8080` the same way, including the chat page in a browser.
 
 ## Project Structure
 
